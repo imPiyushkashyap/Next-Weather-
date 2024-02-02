@@ -1,8 +1,10 @@
-'use client'
+"use client";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Navbar from "./components/Navbar";
-const  Home = ()=> {
+import { env } from "process";
+ const Api = '94838bef0a3df79501ca1daf7da28b58'
+const Home = () => {
   type WeatherData = {
     cod: string;
     message: number;
@@ -22,7 +24,7 @@ const  Home = ()=> {
       sunset: number;
     };
   };
-  
+
   type WeatherEntry = {
     dt: number;
     main: {
@@ -57,22 +59,27 @@ const  Home = ()=> {
     };
     dt_txt: string;
   };
-  const { isLoading, error, data } = useQuery<WeatherData>('repoData', async () =>{
-    const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=nahan&appid=94838bef0a3df79501ca1daf7da28b58&cnt=2`)
-    return data 
-  }
-  // fetch('https://api.openweathermap.org/data/2.5/forecast?q=nahan&appid=94838bef0a3df79501ca1daf7da28b58&cnt=2').then(res =>
-  //   res.json()
-  )
 
-if (isLoading) return 'Loading...'
-console.log("data",data)
+  
+
+  const { isLoading, error, data } = useQuery<WeatherData>(
+    "repoData",
+    async () => {
+      const { data } = await axios.get(
+        `https://api.openweathermap.org/data/2.5/forecast?q=nahan&appid=${Api}`
+      );
+      return data;
+    }
+  );
+
+  if (isLoading) return "Loading...";
+  console.log("data", data);
+
   return (
-
-    
     <div className=" flex flex-col gap-6 bg-cyan-300 min-h-screen">
       <Navbar />
     </div>
   );
-}
-export default Home
+};
+
+export default Home;
