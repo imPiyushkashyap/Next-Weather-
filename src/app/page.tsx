@@ -3,7 +3,8 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import { env } from "process";
- const Api = '94838bef0a3df79501ca1daf7da28b58'
+import { format, parseISO } from "date-fns";
+const Api = "94838bef0a3df79501ca1daf7da28b58";
 const Home = () => {
   type WeatherData = {
     cod: string;
@@ -60,8 +61,6 @@ const Home = () => {
     dt_txt: string;
   };
 
-  
-
   const { isLoading, error, data } = useQuery<WeatherData>(
     "repoData",
     async () => {
@@ -72,12 +71,28 @@ const Home = () => {
     }
   );
 
-  if (isLoading) return "Loading...";
+  if (isLoading)
+    return (
+      <div className=" items-center justify-center flex min-h-screen">
+        <h1 className=" animate-pulse">Loading....</h1>
+      </div>
+    );
   console.log("data", data);
+
+  const date = data?.list[0]
 
   return (
     <div className=" flex flex-col gap-6 bg-cyan-300 min-h-screen">
       <Navbar />
+      <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 p-4">
+        <section>
+          <h2 className="text-2xl flex items-end gap-1">
+            <p> {format(parseISO(date?.dt_txt ?? ''), "EEEE:")} </p>
+            <p>{format(parseISO(date?.dt_txt ?? ''), "dd/MM/yyyy")} </p>
+          </h2>
+        </section>
+        <section></section>
+      </main>
     </div>
   );
 };
