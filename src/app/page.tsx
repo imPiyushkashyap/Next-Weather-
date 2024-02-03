@@ -75,29 +75,35 @@ const Home = () => {
 
   if (isLoading)
     return (
-      <div className=" items-center bg-slate-300 justify-center flex min-h-screen">
-        <h1 className=" animate-pulse text-2xl text-black">Loading....</h1>
+      <div className="items-center justify-center flex min-h-screen bg-slate-300">
+        <h1 className="animate-pulse text-2xl text-black">Loading....</h1>
       </div>
     );
+
   console.log("data", data);
 
-  const date = data?.list[0];
+  const firstData = data?.list[0];
 
   return (
-    <div className=" flex flex-col gap-6 bg-cyan-300 min-h-screen">
+    <div className="flex flex-col gap-6 bg-cyan-300 min-h-screen">
       <Navbar />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 p-4">
         <section>
           <h2 className="text-2xl flex items-end gap-1">
-            <p> {format(parseISO(date?.dt_txt ?? ""), "EEEE:")} </p>
-            <p>{format(parseISO(date?.dt_txt ?? ""), "dd/MM/yyyy")} </p>
+            <p>{format(parseISO(firstData?.dt_txt ?? ""), "EEEE:")}</p>
+            <p>{format(parseISO(firstData?.dt_txt ?? ""), "dd/MM/yyyy")}</p>
           </h2>
         </section>
         <section>
-          <Container className="gap-10 px-6 item-center">
-            <div className="flex flex-row px-4">
-              {F2C(firstData?.main.temp ?? 0)}
+          <Container className="gap-10 px-6 items-center">
+            <div className="flex flex-row px-4 text-lg">
+              <span>{F2C(firstData?.main.temp ?? 0)}°C</span>
+              {/* <p className=" space-y-3 text-xs space-x-1 whitespace-nowrap">
+                <span>Feels like</span>
+                <span>{F2C(firstData?.main.feels_like ?? 0)}°C</span>
+              </p> */}
             </div>
+            <div className=""></div>
           </Container>
         </section>
       </main>
