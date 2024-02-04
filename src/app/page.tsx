@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
+import WeatherIcon from "./components/WeatherIcon";
 import { format, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 
@@ -103,7 +104,18 @@ const Home = () => {
                 <span>{F2C(firstData?.main.feels_like ?? 0)}°C</span>
               </p> */}
             </div>
-            <div className=""></div>
+            <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+              {data?.list.map((d, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col justify-between gap-2 items-center text-xs font-semibold"
+                >
+                  <p className=" whitespace-nowrap">{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                  <p>{F2C(firstData?.main.temp ?? 0)} °c</p>
+                  <WeatherIcon iconName={d.weather[0].icon}/>
+                </div>
+              ))}
+            </div>
           </Container>
         </section>
       </main>
