@@ -96,8 +96,8 @@ const Home = () => {
             <p>{format(parseISO(firstData?.dt_txt ?? ""), "dd/MM/yyyy")}</p>
           </h2>
         </section>
-        <section>
-          <Container className="gap-10 px-6 items-center">
+        <section className="snap-x">
+          <Container className="snap-center gap-10 px-6 items-center">
             <div className="flex flex-row px-4 text-lg">
               <span>{F2C(firstData?.main.temp ?? 0)}°C</span>
               {/* <p className=" space-y-3 text-xs space-x-1 whitespace-nowrap">
@@ -118,6 +118,9 @@ const Home = () => {
               ))}
             </div>
           </Container>
+        </section>
+        <section className="flex flex-col w-full gap-4" >
+        <p className="text-lg">Forecast (7 Days)</p>
         </section>
       </main>
     </div>
