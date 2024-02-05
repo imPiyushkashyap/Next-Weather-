@@ -13,7 +13,7 @@ const WeatherIcon = (
         height={100}
         alt="weather icon"
         className="h-full absolute w-full"
-        src={`https://openweathermap.org/img/wn${props.iconName}/@4x.png`}
+        src={`https://openweathermap.org/img/wn/${props.iconName}/10d.png`}
       />
     </div>
   );

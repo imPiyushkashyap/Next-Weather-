@@ -43,6 +43,7 @@ const Home = () => {
       temp_kf: number;
     };
     weather: Array<{
+      iconName: String;
       id: number;
       main: string;
       description: string;
@@ -112,7 +113,7 @@ const Home = () => {
                 >
                   <p className=" whitespace-nowrap">{format(parseISO(d.dt_txt), "h:mm a")}</p>
                   <p>{F2C(firstData?.main.temp ?? 0)} °c</p>
-                  <WeatherIcon iconName={d.weather[0].icon}/>
+                  {/* <WeatherIcon iconName={d.weather[0].icon}/> */}
                 </div>
               ))}
             </div>
