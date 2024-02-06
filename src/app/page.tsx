@@ -4,7 +4,7 @@ import axios from "axios";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
 import WeatherIcon from "./components/WeatherIcon";
-import { format, parseISO } from "date-fns";
+import { format, getDay, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 
 const Api = "94838bef0a3df79501ca1daf7da28b58";
@@ -119,6 +119,14 @@ const Home = () => {
             </div>
           </Container>
         </section>
+        <div className="flex gap-4">
+        <Container className="w-fit justify-center flex-col items-center px-4">
+  <p className="text-center capitalize">{firstData?.weather[0].description}</p>
+
+</Container>
+<Container className="px-6 gap-4 justify-between overflow-x-auto"/>
+
+        </div>
         <section className="flex flex-col w-full gap-4" >
         <p className="text-lg">Forecast (7 Days)</p>
         </section>
