@@ -3,8 +3,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
-
-import WeatherIcon from "./components/WeatherIcon";
+// import WeatherIcon from "./components/WeatherIcon";
 import { format, getDay, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
@@ -114,7 +113,9 @@ const Home = () => {
                   key={i}
                   className="flex flex-col justify-between gap-2 items-center text-xs font-semibold"
                 >
-                  <p className=" whitespace-nowrap">{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                  <p className=" whitespace-nowrap">
+                    {format(parseISO(d.dt_txt), "h:mm a")}
+                  </p>
                   <p>{F2C(firstData?.main.temp ?? 0)} °c</p>
                   {/* <WeatherIcon iconName={d.weather[0].icon}/> */}
                 </div>
@@ -123,17 +124,30 @@ const Home = () => {
           </Container>
         </section>
         <div className="flex gap-4">
-        <Container className="w-fit justify-center flex-col items-center px-4">
-  <p className="text-center capitalize">{firstData?.weather[0].description}</p>
-
-</Container>
-<Container  className="px-6 gap-4 justify-between overflow-x-auto">
-  <WeatherForecast visibility={metersToKilometers(firstData?.visibility ?? "10000 km")} humidity={""} windspeed={""} sunrise={""} sunset={""} airpressure={`${firstData?.main.pressure} hPa`} />
-</Container>
-
+          <Container className="w-fit justify-center flex-col items-center px-4">
+            <p className="text-center capitalize">
+              {firstData?.weather[0].description}
+            </p>
+          </Container>
+          <Container className="px-6 gap-4 justify-between overflow-x-auto">
+            <WeatherForecast
+              visibility={
+                typeof firstData?.visibility === "number"
+                  ? metersToKilometers(firstData.visibility)
+                  : metersToKilometers(
+                      parseInt(firstData?.visibility || "10000")   //chatgpt
+                    )
+              }
+              humidity={""}
+              windspeed={""}
+              sunrise={""}
+              sunset={""}
+              airpressure={`${firstData?.main.pressure} hPa`}
+            />
+          </Container>
         </div>
-        <section className="flex flex-col w-full gap-4" >
-        <p className="text-lg">Forecast (7 Days)</p>
+        <section className="flex flex-col w-full gap-4">
+          <p className="text-lg">Forecast (7 Days)</p>
         </section>
       </main>
     </div>
