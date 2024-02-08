@@ -1,5 +1,10 @@
 import React from "react";
 import { GoEye } from "react-icons/go";
+import { ImDroplet } from "react-icons/im";
+import { MdAir } from "react-icons/md";
+import { IoMdSpeedometer } from "react-icons/io";
+import { WiSunrise } from "react-icons/wi";
+import { TbSunset2 } from "react-icons/tb";
 
 interface details {
   visibility: string;
@@ -17,9 +22,63 @@ export interface SingleWeather {
 }
 
 export default function WeatherForecast(props: details) {
+  const {
+    visibility = "25km",
+    humidity = "53%",
+    windspeed = "4 km/hr",
+    sunrise = "993 hPa",
+    sunset = "6:10",
+    airpressure = "7:39",
+  } = props;
   return (
     <>
-      <SingleWeather icon={<GoEye />} information="visibility" value={props.visibility} />
+      <>
+        <>
+          <>
+            <SingleWeather
+              icon={<GoEye />}
+              information="visibility"
+              value={visibility}
+            />
+          </>
+          <>
+            <SingleWeather
+              icon={<ImDroplet />}
+              information="humidity "
+              value={humidity}
+            />
+          </>
+        </>
+        <>
+          <SingleWeather
+            icon={<MdAir />}
+            information="windspeed"
+            value={windspeed}
+          />
+        </>
+      </>
+      <>
+        <SingleWeather
+          icon={<IoMdSpeedometer />}
+          information="airpressure"
+          value={airpressure}
+        />
+      </>
+      <>
+        <SingleWeather
+          icon={<WiSunrise />}
+          information="sunrise"
+          value={sunrise}
+        />
+      </>
+      <>
+        {" "}
+        <SingleWeather
+          icon={<TbSunset2 />}
+          information="sunset"
+          value={sunset}
+        />
+      </>
     </>
   );
 }
