@@ -8,6 +8,7 @@ import WeatherIcon from "./components/WeatherIcon";
 import { format, getDay, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
+import { metersToKilometers } from "./utils/mtrTOkm";
 
 const Api = "94838bef0a3df79501ca1daf7da28b58";
 const Home = () => {
@@ -127,7 +128,7 @@ const Home = () => {
 
 </Container>
 <Container  className="px-6 gap-4 justify-between overflow-x-auto">
-  <WeatherForecast visibility={""} humidity={""} windspeed={""} sunrise={""} sunset={""} airpressure={""} />
+  <WeatherForecast visibility={metersToKilometers(firstData?.visibility ?? "10000 km")} humidity={""} windspeed={""} sunrise={""} sunset={""} airpressure={`${firstData?.main.pressure} hPa`} />
 </Container>
 
         </div>

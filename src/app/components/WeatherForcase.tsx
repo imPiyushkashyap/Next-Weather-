@@ -7,7 +7,7 @@ import { WiSunrise } from "react-icons/wi";
 import { TbSunset2 } from "react-icons/tb";
 
 interface details {
-  visibility: string;
+  visibility: string | number;
   humidity: string;
   windspeed: string;
   sunrise: string;
@@ -30,6 +30,12 @@ export default function WeatherForecast(props: details) {
     sunset = "6:10",
     airpressure = "7:39",
   } = props;
+  const visibilityValue =
+    typeof visibility === "number" ? visibility.toString() : visibility;
+  {
+    ("chatgpt");
+  }
+
   return (
     <>
       <>
@@ -37,14 +43,14 @@ export default function WeatherForecast(props: details) {
           <>
             <SingleWeather
               icon={<GoEye />}
-              information="visibility"
-              value={visibility}
+              information="Visibility"
+              value={visibilityValue}
             />
           </>
           <>
             <SingleWeather
               icon={<ImDroplet />}
-              information="humidity "
+              information="Humidity "
               value={humidity}
             />
           </>
@@ -52,7 +58,7 @@ export default function WeatherForecast(props: details) {
         <>
           <SingleWeather
             icon={<MdAir />}
-            information="windspeed"
+            information="Windspeed"
             value={windspeed}
           />
         </>
@@ -60,14 +66,14 @@ export default function WeatherForecast(props: details) {
       <>
         <SingleWeather
           icon={<IoMdSpeedometer />}
-          information="airpressure"
+          information="Airpressure"
           value={airpressure}
         />
       </>
       <>
         <SingleWeather
           icon={<WiSunrise />}
-          information="sunrise"
+          information="Sunrise"
           value={sunrise}
         />
       </>
@@ -75,7 +81,7 @@ export default function WeatherForecast(props: details) {
         {" "}
         <SingleWeather
           icon={<TbSunset2 />}
-          information="sunset"
+          information="Sunset"
           value={sunset}
         />
       </>
