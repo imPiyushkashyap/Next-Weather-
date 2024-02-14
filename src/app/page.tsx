@@ -4,7 +4,7 @@ import axios from "axios";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
 // import WeatherIcon from "./components/WeatherIcon";
-import { format, getDay, parseISO } from "date-fns";
+import { format, fromUnixTime, getDay, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
 import { metersToKilometers } from "./utils/mtrTOkm";
@@ -135,13 +135,13 @@ const Home = () => {
                 typeof firstData?.visibility === "number"
                   ? metersToKilometers(firstData.visibility)
                   : metersToKilometers(
-                      parseInt(firstData?.visibility || "10000")   //chatgpt
+                      parseInt(firstData?.visibility || "10000" )   //chatgpt
                     )
               }
-              humidity={""}
-              windspeed={""}
-              sunrise={""}
-              sunset={""}
+              humidity={`${firstData?.main.humidity} %`}
+              windspeed={`${firstData?.wind.speed} KmPh`}
+              sunrise={format(fromUnixTime(data?.city.sunrise), "h:mm a")}
+              sunset={format(fromUnixTime(data?.city.sunset), "h:mm a")}
               airpressure={`${firstData?.main.pressure} hPa`}
             />
           </Container>

@@ -10,7 +10,7 @@ interface details {
   visibility: string | number;
   humidity: string;
   windspeed: string;
-  sunrise: string;
+  sunrise: string
   sunset: string;
   airpressure: string;
 }
