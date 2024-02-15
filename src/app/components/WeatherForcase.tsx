@@ -6,7 +6,7 @@ import { IoMdSpeedometer } from "react-icons/io";
 import { WiSunrise } from "react-icons/wi";
 import { TbSunset2 } from "react-icons/tb";
 
-interface details {
+ export interface details {
   visibility: string | number;
   humidity: string;
   windspeed: string;

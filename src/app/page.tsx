@@ -8,6 +8,7 @@ import { format, fromUnixTime, getDay, parseISO } from "date-fns";
 import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
 import { metersToKilometers } from "./utils/mtrTOkm";
+import DayWeather from "./components/DayWeather";
 
 const Api = "94838bef0a3df79501ca1daf7da28b58";
 const Home = () => {
@@ -89,7 +90,7 @@ const Home = () => {
   const firstData = data?.list[0];
 
   return (
-    <div className="flex flex-col gap-6 bg-cyan-300 min-h-screen">
+    <div className="flex flex-col gap-6 bg-cyan-300 min-h-screen ">
       <Navbar />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 p-4">
         <section>
@@ -146,9 +147,10 @@ const Home = () => {
             />
           </Container>
         </div>
-        <section className="flex flex-col w-full gap-4">
+        <section className="flex flex-col w-full gap-4 ">
           <p className="text-lg">Forecast (7 Days)</p>
         </section>
+        <DayWeather weatherIcon={""} date={""} day={""} temp={`${firstData?.main.temp}`} feels_like={0} temp_min={0} temp_max={0} description={""} visibility={""} humidity={""} windspeed={""} sunrise={""} sunset={""} airpressure={""}/>
       </main>
     </div>
   );
