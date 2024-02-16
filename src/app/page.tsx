@@ -1,10 +1,10 @@
-"use client";
+"use client"
 import { useQuery } from "react-query";
 import axios from "axios";
 import Container from "./components/Container";
 import Navbar from "./components/Navbar";
 // import WeatherIcon from "./components/WeatherIcon";
-import { format, fromUnixTime, getDay, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns"; // Added parseISO
 import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
 import { metersToKilometers } from "./utils/mtrTOkm";
@@ -87,6 +87,12 @@ const Home = () => {
 
   console.log("data", data);
 
+  const uniqueData = [
+    ...new Set(
+      data?.list.map((entry) => new Date(entry.dt * 1000).toISOString().split("T")[0])
+    )
+  ]; // Fixed syntax error
+
   const firstData = data?.list[0];
 
   return (
@@ -136,7 +142,7 @@ const Home = () => {
                 typeof firstData?.visibility === "number"
                   ? metersToKilometers(firstData.visibility)
                   : metersToKilometers(
-                      parseInt(firstData?.visibility || "10000" )   //chatgpt
+                      parseInt(firstData?.visibility || "10000") //chatgpt
                     )
               }
               humidity={`${firstData?.main.humidity} %`}
@@ -149,8 +155,26 @@ const Home = () => {
         </div>
         <section className="flex flex-col w-full gap-4 ">
           <p className="text-lg">Forecast (7 Days)</p>
+          {data?.list.map((dayData, index) => (
+            <DayWeather
+              key={index}
+              weatherIcon={""}
+              date={""}
+              day={""}
+              temp={`${dayData?.main.temp}`}
+              feels_like={0}
+              temp_min={0}
+              temp_max={0}
+              description={""}
+              visibility={""}
+              humidity={""}
+              windspeed={""}
+              sunrise={""}
+              sunset={""}
+              airpressure={""}
+            />
+          ))}
         </section>
-        <DayWeather weatherIcon={""} date={""} day={""} temp={`${firstData?.main.temp}`} feels_like={0} temp_min={0} temp_max={0} description={""} visibility={""} humidity={""} windspeed={""} sunrise={""} sunset={""} airpressure={""}/>
       </main>
     </div>
   );

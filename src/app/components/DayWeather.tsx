@@ -8,7 +8,7 @@ interface DayWeatherProps extends details {
   weatherIcon: string;
   date: string;
   day: string;
-  temp: number;
+  temp: number,
   feels_like: number;
   temp_min: number;
   temp_max: number;
