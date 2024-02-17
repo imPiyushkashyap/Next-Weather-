@@ -91,7 +91,7 @@ const Home = () => {
     ...new Set(
       data?.list.map((entry) => new Date(entry.dt * 1000).toISOString().split("T")[0])
     )
-  ]; // Fixed syntax error
+  ]; //chatgpt
 
   const firstData = data?.list[0];
 
