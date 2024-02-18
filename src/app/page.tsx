@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Container from "./components/Container";
@@ -27,8 +27,8 @@ const Home = () => {
       country: string;
       population: number;
       timezone: number;
-      sunrise: number;
-      sunset: number;
+      sunrise: number | any;
+      sunset: number | any;
     };
   };
 
@@ -89,8 +89,10 @@ const Home = () => {
 
   const uniqueData = [
     ...new Set(
-      data?.list.map((entry) => new Date(entry.dt * 1000).toISOString().split("T")[0])
-    )
+      data?.list.map(
+        (entry) => new Date(entry.dt * 1000).toISOString().split("T")[0]
+      )
+    ),
   ]; //chatgpt
 
   const firstData = data?.list[0];
