@@ -49,7 +49,7 @@ const Home = () => {
       iconName: String;
       id: number;
       main: string;
-      description: string;
+      description: string | any
       icon: string;
     }>;
     clouds: {
@@ -166,18 +166,24 @@ const Home = () => {
         <section className="flex flex-col w-full gap-4 ">
           <p className="text-lg">Forecast (7 Days)</p>
           {firstdataforeachdata.map((dayData, index) => (
-            <DayWeather
+            <DayWeather 
               key={index}
               weatherIcon={""}
-              date={""}
-              day={""}
+              date={format(parseISO(dayData?.dt_txt ?? ""), "dd/MM")}
+              day={format(parseISO(dayData?.dt_txt ?? ""), "EEEE:")}
               temp={`${dayData?.main.temp}`}
               feels_like={0}
               temp_min={0}
               temp_max={0}
-              description={""}
-              visibility={""}
-              humidity={""}
+              description={""} 
+              visibility={
+                typeof dayData?.visibility === "number"
+                  ? metersToKilometers(dayData.visibility)
+                  : metersToKilometers(
+                      parseInt(dayData?.visibility || "10000") //reusing properties
+                    )
+              }
+              humidity={`${dayData?.main}`}
               windspeed={""}
               sunrise={""}
               sunset={""}

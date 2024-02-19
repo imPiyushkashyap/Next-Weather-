@@ -24,11 +24,11 @@ export default function DayWeather(props: DayWeatherProps) {
     feels_like,
     temp_min,
     temp_max,
-    description = props.description
+    description = props.description 
   } = props;
 
   return (
-    <Container className="gap-4">
+    <Container className=" gap-4">
       <section className="flex gap-4 items-center px-4">
         <div>
           {/* <WeatherIcon iconName={weatherIcon} /> */}
@@ -41,11 +41,11 @@ export default function DayWeather(props: DayWeatherProps) {
             <span>Feels Like</span>
             <span>{F2C(feels_like ?? 0)} °</span>
           </p>
-          <p className=" capitalize">Clear Sky</p>
+          <p className=" capitalize">{}</p>
         </div>
        
       </section>
-      <section className=" overflow-x-auto flex justify-between gap-4 px-4 w-full pr-10">
+      <section className=" overflow-x-auto  flex justify-between gap-4 px-4 w-full pr-10">
         <WeatherForecast {...props}/>
       </section>
     </Container>
