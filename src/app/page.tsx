@@ -95,6 +95,14 @@ const Home = () => {
     ),
   ]; //chatgpt
 
+  const firstdataforeachdata = uniqueData.map((date) => {
+    return data?.list.find((entry) => {
+      const entryDate = new Date(entry.dt * 1000).toISOString().split("T")[0];
+      const entryTime = new Date(entry.dt * 1000).getHours();
+      return entryDate === date && entryTime >= 6;
+    });
+  });
+
   const firstData = data?.list[0];
 
   return (
@@ -157,7 +165,7 @@ const Home = () => {
         </div>
         <section className="flex flex-col w-full gap-4 ">
           <p className="text-lg">Forecast (7 Days)</p>
-          {data?.list.map((dayData, index) => (
+          {firstdataforeachdata.map((dayData, index) => (
             <DayWeather
               key={index}
               weatherIcon={""}
