@@ -49,7 +49,7 @@ const Home = () => {
       iconName: String;
       id: number;
       main: string;
-      description: string | any
+      description: string | any;
       icon: string;
     }>;
     clouds: {
@@ -99,7 +99,7 @@ const Home = () => {
     return data?.list.find((entry) => {
       const entryDate = new Date(entry.dt * 1000).toISOString().split("T")[0];
       const entryTime = new Date(entry.dt * 1000).getHours();
-      return entryDate === date && entryTime >= 6;
+      return entryDate === date && entryTime >= 7;
     });
   });
 
@@ -156,7 +156,7 @@ const Home = () => {
                     )
               }
               humidity={`${firstData?.main.humidity} %`}
-              windspeed={`${firstData?.wind.speed} KmPh`}
+              windspeed={`${firstData?.wind.speed} Km/h`}
               sunrise={format(fromUnixTime(data?.city.sunrise), "h:mm a")}
               sunset={format(fromUnixTime(data?.city.sunset), "h:mm a")}
               airpressure={`${firstData?.main.pressure} hPa`}
@@ -166,31 +166,43 @@ const Home = () => {
         <section className="flex flex-col w-full gap-4 ">
           <p className="text-lg">Forecast (7 Days)</p>
           {firstdataforeachdata.map((dayData, index) => (
-            <DayWeather 
+            <DayWeather
               key={index}
               weatherIcon={""}
               date={format(parseISO(dayData?.dt_txt ?? ""), "dd/MM")}
-              day={format(parseISO(dayData?.dt_txt ?? ""), "EEEE:")}
+              day={<strong>{format(parseISO(dayData?.dt_txt ?? ""), "EEEE:")}</strong>}
               temp={`${dayData?.main.temp}`}
               feels_like={0}
               temp_min={0}
               temp_max={0}
-              description={""} 
+              description={""}
               visibility={
                 typeof dayData?.visibility === "number"
-                  ? metersToKilometers(dayData.visibility)
+                  ? metersToKilometers(dayData.visibility) 
                   : metersToKilometers(
-                      parseInt(dayData?.visibility || "10000") //reusing properties
+                      parseInt(dayData?.visibility || "10000 km") //reusing properties
                     )
               }
-              humidity={`${dayData?.main}`}
-              windspeed={""}
-              sunrise={""}
-              sunset={""}
-              airpressure={""}
+              humidity={`${dayData?.main.humidity}% `}
+              windspeed={`${dayData?.wind.speed} Km/h`}
+              sunset={`${format(
+                fromUnixTime(data?.city.sunset ?? 1708432914), //same result
+                " p"
+              )}`}
+              sunrise={`${format(
+                fromUnixTime(data?.city.sunrise ?? 1708392460), // same  result
+                " p"
+              )}`}
+              airpressure={`${dayData?.main.pressure} hPa`}
             />
           ))}
         </section>
+        <footer className="flex flex-col items-center justify-center">
+          Created with ❤ by
+          <a className="" href="https://github.com/imPiyushkashyap">
+            <u>Piyush Kashyap</u>
+          </a>
+        </footer>
       </main>
     </div>
   );
