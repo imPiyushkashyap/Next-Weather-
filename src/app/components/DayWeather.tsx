@@ -7,8 +7,8 @@ import { F2C } from "../utils/fahrenheitTOcelsius";
 interface DayWeatherProps extends details {
   weatherIcon: string;
   date: string;
-  day: string | any
-  temp: number | any
+  day: string | any;
+  temp: number | any;
   feels_like: number;
   temp_min: number;
   temp_max: number;
@@ -24,11 +24,11 @@ export default function DayWeather(props: DayWeatherProps) {
     feels_like,
     temp_min,
     temp_max,
-    description = props.description 
+    description = props.description,
   } = props;
 
   return (
-    <Container className=" gap-4 ">
+    <Container className=" gap-4 bg-gradient-to-r from-color1/5  from-10% to-color2/45 to-90%">
       <section className="flex gap-4 items-center px-4">
         <div className="flex flex-col gap-1 text-center">
           {/* <WeatherIcon iconName={weatherIcon} /> */}
@@ -43,10 +43,9 @@ export default function DayWeather(props: DayWeatherProps) {
           </p>
           <p className=" capitalize">{}</p>
         </div>
-       
       </section>
       <section className=" overflow-x-auto  flex justify-between gap-4 px-4 w-full pr-10">
-        <WeatherForecast {...props}/>
+        <WeatherForecast {...props} />
       </section>
     </Container>
   );

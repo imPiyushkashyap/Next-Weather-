@@ -106,19 +106,21 @@ const Home = () => {
   const firstData = data?.list[0];
 
   return (
-    <div className="flex flex-col gap-6 bg-cyan-300 min-h-screen ">
+    <div className="flex flex-col gap-6 bg-gradient-to-r from-color3 to-color4 min-h-screen ">
       <Navbar />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 p-4">
         <section>
-          <h2 className="text-2xl flex items-end gap-1">
+          <h2 className="text-3xl flex items-end gap-1">
             <p>{format(parseISO(firstData?.dt_txt ?? ""), "EEEE:")}</p>
             <p>{format(parseISO(firstData?.dt_txt ?? ""), "dd/MM/yyyy")}</p>
           </h2>
         </section>
         <section className="snap-x">
-          <Container className="snap-center gap-10 px-6 items-center">
-            <div className="flex flex-row px-4 text-lg">
-              <span>{F2C(firstData?.main.temp ?? 0)}°C</span>
+          <Container className="snap-center gap-10 px-6 items-center bg-gradient-to-r from-color1  from-10% to-color2/35 to-90%">
+            <div className="flex flex-row px-4 text-xl">
+              <span className="text-4xl">
+                {F2C(firstData?.main.temp ?? 0)}°C
+              </span>
               {/* <p className=" space-y-3 text-xs space-x-1 whitespace-nowrap">
                 <span>Feels like</span>
                 <span>{F2C(firstData?.main.feels_like ?? 0)}°C</span>
@@ -141,12 +143,12 @@ const Home = () => {
           </Container>
         </section>
         <div className="flex gap-4">
-          <Container className="w-fit justify-center flex-col items-center px-4">
+          <Container className="w-fit bg-color1/95 justify-center flex-col items-center px-4">
             <p className="text-center capitalize">
               {firstData?.weather[0].description}
             </p>
           </Container>
-          <Container className="px-6 gap-4 justify-between overflow-x-auto">
+          <Container className="px-6 gap-4 justify-between bg-gradient-to-r from-color1  from-10% to-color2/35 to-90% overflow-x-auto">
             <WeatherForecast
               visibility={
                 typeof firstData?.visibility === "number"
@@ -170,7 +172,11 @@ const Home = () => {
               key={index}
               weatherIcon={""}
               date={format(parseISO(dayData?.dt_txt ?? ""), "dd/MM")}
-              day={<strong>{format(parseISO(dayData?.dt_txt ?? ""), "EEEE:")}</strong>}
+              day={
+                <strong>
+                  {format(parseISO(dayData?.dt_txt ?? ""), "EEEE:")}
+                </strong>
+              }
               temp={`${dayData?.main.temp}`}
               feels_like={0}
               temp_min={0}
@@ -178,7 +184,7 @@ const Home = () => {
               description={""}
               visibility={
                 typeof dayData?.visibility === "number"
-                  ? metersToKilometers(dayData.visibility) 
+                  ? metersToKilometers(dayData.visibility)
                   : metersToKilometers(
                       parseInt(dayData?.visibility || "10000 km") //reusing properties
                     )
