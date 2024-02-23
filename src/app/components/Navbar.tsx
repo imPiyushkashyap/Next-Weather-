@@ -4,6 +4,9 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 import Search from "./Search";
 import axios from "axios";
+import { list } from "postcss";
+import { placeAtom } from "../atoms";
+import { useAtom } from "jotai";
 
 type Props = {};
 
@@ -12,6 +15,7 @@ const Navbar = ({}: Props) => {
   const [error, setError] = React.useState("");
   const [suggestions, setSuggestions] = React.useState<string[]>([]);
   const [show, setShow] = React.useState(false);
+  const [location, setLocation] = useAtom(placeAtom)
 
   async function handleInputChange(value: string) {
     setCity(value);
@@ -32,6 +36,21 @@ const Navbar = ({}: Props) => {
       setShow(false);
     }
   }
+  function handleSuggestionsClick(value: string) {
+    setCity(value);
+    setShow(false);
+  }
+  function handleSubmitSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (suggestions.length == 0) {
+      setError("Location not found");
+    }
+    else{
+      setError("")
+      setLocation(city)
+      setShow(false)
+    }
+  }
 
   function SuggestionsBox({
     show,
@@ -46,9 +65,23 @@ const Navbar = ({}: Props) => {
   }) {
     return (
       <>
-        <ul className="mb-4 bg-slate-50 absolute border top-[44px] border-gray-300 rounded-md min-w-[200px] flex flex-col gap-1 py-2 px-2">
-          <li className=" cursor-pointer p-1 rounded hover:bg-slate-200"></li>
-        </ul>
+        {((show && suggestions.length > 1) || error) && (
+          <ul className="mb-4 bg-slate-50 absolute border top-[44px] border-gray-300 rounded-md min-w-[200px] flex flex-col gap-1 py-2 px-2">
+            {error && suggestions.length < 1 && (
+              <li className="text-red-500 p-1">{error}</li>
+            )}
+            {suggestions.map((data, index) => (
+              <li
+                key={index}
+                onClick={() => handleSuggestionsClick(data)}
+                className=" cursor-pointer p-1 rounded hover:bg-slate-300"
+              >
+                {data}
+              </li>
+            ))}
+            <li className=" cursor-pointer p-1 rounded hover:bg-slate-200"></li>
+          </ul>
+        )}
       </>
     );
   }
@@ -67,11 +100,11 @@ const Navbar = ({}: Props) => {
             <Search
               value={city}
               onchange={(e) => handleInputChange(e.target.value)}
-              onsubmit={undefined}
+              onsubmit={handleSubmitSearch}
             />
-            <SuggestionsBox show={false} suggestions={[]} handleSuggestionsClick={function (item: string): void {
-              throw new Error("Function not implemented.");
-            } } error={""} />
+            <SuggestionsBox
+              {...{ show, suggestions, handleSuggestionsClick, error }}
+            />
           </div>
         </section>
       </div>

@@ -9,6 +9,9 @@ import { F2C } from "./utils/fahrenheitTOcelsius";
 import WeatherForecast from "./components/WeatherForcase";
 import { metersToKilometers } from "./utils/mtrTOkm";
 import DayWeather from "./components/DayWeather";
+import { placeAtom } from "./atoms";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
 
 const Api = "94838bef0a3df79501ca1daf7da28b58";
 const Home = () => {
@@ -67,16 +70,24 @@ const Home = () => {
     };
     dt_txt: string;
   };
-
-  const { isLoading, error, data } = useQuery<WeatherData>(
+  const [location, setLocation] = useAtom(placeAtom)
+  const { isLoading, error, data , refetch } = useQuery<WeatherData>(
+    
     "repoData",
+    
     async () => {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=nahan&appid=${Api}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${Api}`
       );
       return data;
     }
   );
+
+  useEffect(()=> {
+    return()=>{
+
+    }
+  }, [])
 
   if (isLoading)
     return (
