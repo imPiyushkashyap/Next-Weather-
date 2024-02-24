@@ -4,7 +4,6 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import { IoLocationSharp } from "react-icons/io5";
 import Search from "./Search";
 import axios from "axios";
-import { list } from "postcss";
 import { placeAtom } from "../atoms";
 import { useAtom } from "jotai";
 
@@ -15,7 +14,7 @@ const Navbar = ({}: Props) => {
   const [error, setError] = React.useState("");
   const [suggestions, setSuggestions] = React.useState<string[]>([]);
   const [show, setShow] = React.useState(false);
-  const [location, setLocation] = useAtom(placeAtom)
+  const [location, setLocation] = useAtom(placeAtom);
 
   async function handleInputChange(value: string) {
     setCity(value);
@@ -44,14 +43,23 @@ const Navbar = ({}: Props) => {
     e.preventDefault();
     if (suggestions.length == 0) {
       setError("Location not found");
-    }
-    else{
-      setError("")
-      setLocation(city)
-      setShow(false)
+    } else {
+      setError("");
+      setLocation(location);
+      setShow(false);
     }
   }
 
+  // function currentLocation() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(async (position) => {
+  //       const { latitude, longitude } = position.coords;
+  //       try {
+  //         setLocation(true)
+  //       } catch (error) {}
+  //     });
+  //   }
+  // }
   function SuggestionsBox({
     show,
     suggestions,
@@ -90,10 +98,14 @@ const Navbar = ({}: Props) => {
     <nav className="flex bg-gradient-to-r from-color1 to-color2 shadow-sm sticky  font-serif top-0 left-0 z-50">
       <div className=" h-[80px] w-full  flex justify-between item-center  max-w-6 px-3 mx-auto">
         <p className="flex absolute top-0 left-7 mx-6 my-5 gap-2 ">
-          <h2 className=" text-gray-800 text-3xl">Weather</h2>
+          <h2 className=" text-gray-800 text-3xl">Next Weather</h2>
         </p>
         <section className=" absolute top-0  right-20 mx-6 my-5 flex items-center gap-2">
-          <FaLocationCrosshairs className=" text-2xl text-gray-700 cursor-pointer hover:opacity-55" />
+          <FaLocationCrosshairs
+            title="Current location"
+            // onClick={currentLocation}
+            className=" text-2xl text-gray-700 cursor-pointer hover:opacity-55"
+          />
           <IoLocationSharp className="flex text-2xl text-gray-700 cursor-pointer hover:opacity-55" />
           <p className="text-md text-gray-800">India</p>
           <div className="relative ">

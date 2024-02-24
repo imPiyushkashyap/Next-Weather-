@@ -70,24 +70,21 @@ const Home = () => {
     };
     dt_txt: string;
   };
-  const [location, setLocation] = useAtom(placeAtom)
-  const { isLoading, error, data , refetch } = useQuery<WeatherData>(
-    
+  const [location, setLocation] = useAtom(placeAtom);
+  const { isLoading, error, data, refetch } = useQuery<WeatherData>(
     "repoData",
-    
+
     async () => {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${Api}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=nahan&appid=${Api}&cnt=56`
       );
       return data;
     }
   );
 
-  useEffect(()=> {
-    return()=>{
-
-    }
-  }, [])
+  useEffect(() => {
+    refetch();
+  }, [location, refetch]);
 
   if (isLoading)
     return (
